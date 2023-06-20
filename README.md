@@ -1,6 +1,15 @@
 # Hash DAG in Go
 
-`hash-dag-go` is a library for converting a vanilla Directed Acyclic Graphs (DAG) to a thing which I'm calling a hash DAG (which is not to be confused with the [IPFS Merkle DAG](https://docs.ipfs.tech/concepts/merkle-dag/)).
+`hash-dag-go` is a library for converting a vanilla Directed Acyclic Graphs (DAG) to a thing which I'm calling a hash DAG (which is not to be confused with the [IPFS Merkle DAG](https://docs.ipfs.tech/concepts/merkle-dag/)). 
+
+The algorithm for computing the label of a node in the hash DAG is:
+
+```
+let H = some hashing function
+let N = some node with data (a byte array) and a (possibly empty) array of parent nodes
+
+label = H(CONCAT(H(N.Data), SORT(MAP(N.Parents, H))))
+```
 
 <p float="left">
 	<table>

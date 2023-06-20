@@ -5,10 +5,13 @@
 The algorithm for computing the label of a node in the hash DAG is:
 
 ```
-let H = some hashing function
-let N = some node with data (a byte array) and a (possibly empty) array of parent nodes
+let H      = some hashing function which produces a string
+    N      = some node with data (a byte array) and a (possibly empty) array of parent nodes
+    SORT   = lexicographical sorting function
+    CONCAT = concatenation
+    MAP    = mapping function
 
-label = H(CONCAT(H(N.Data), SORT(MAP(N.Parents, H))))
+in label   = H(CONCAT(H(N.Data), SORT(MAP(N.Parents, H))))
 ```
 
 <p float="left">

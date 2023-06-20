@@ -1,22 +1,3 @@
-# Merkle DAG in Go
-
-`merkle-dag-go` is a library for converting a vanilla Directed Acyclic Graphs (DAG) to a Merkle DAG.
-
-<p float="left">
-| ![./public/img/original.png](./public/img/original.png) | 
-|:--:| 
-| before merkelizing |
-</p>
-
-<p float="left">
-| ![./public/img/hashed.png](./public/img/hashed.png) | 
-|:--:| 
-| after merkelizing |
-</p>
-
-## Usage
-
-```go
 package main
 
 import (
@@ -24,7 +5,7 @@ import (
 	"math/rand"
 
 	gvz "github.com/laser/random-dag-generator-go/render/graphviz"
-	
+
 	"github.com/laser/merkle-dag-go"
 	"github.com/laser/merkle-dag-go/vanilla"
 )
@@ -45,4 +26,3 @@ func main() {
 
 	gvz.RenderTo(converted, *outputPath)
 }
-```

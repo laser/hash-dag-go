@@ -1,6 +1,6 @@
 # Hash DAG in Go
 
-`hash-dag-go` is a library for converting a vanilla Directed Acyclic Graphs (DAG) to a Hash DAG.
+`hash-dag-go` is a library for converting a vanilla Directed Acyclic Graphs (DAG) to a hash DAG. I am hesitant to call it a Merkle DAG, as [my pals over at PL](https://docs.ipfs.tech/concepts/merkle-dag/) have already laid claim to that term.
 
 <p float="left">
 	<table>

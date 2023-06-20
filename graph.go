@@ -1,4 +1,4 @@
-package merkle
+package hashdag
 
 type Node struct {
 	Id   NodeId

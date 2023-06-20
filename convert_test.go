@@ -1,4 +1,4 @@
-package merkle_test
+package hashdag_test
 
 import (
 	"fmt"
@@ -7,9 +7,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/laser/merkle-dag-go"
-	"github.com/laser/merkle-dag-go/slice"
-	"github.com/laser/merkle-dag-go/vanilla"
+	"github.com/laser/hash-dag-go/vanilla"
 
 	rdag "github.com/laser/random-dag-generator-go"
 
@@ -121,7 +119,7 @@ func TestConvert(t *testing.T) {
 		for i := 0; i < 100; i++ {
 			input := randomDAG()
 
-			actual := merkle.From(input)
+			actual := hashdag.From(input)
 
 			require.Equal(t, len(input.Edges), len(actual.Edges))
 		}
@@ -131,7 +129,7 @@ func TestConvert(t *testing.T) {
 		for i := 0; i < 100; i++ {
 			input := randomDAG()
 
-			actual := merkle.From(input)
+			actual := hashdag.From(input)
 
 			require.Equal(t, len(input.Nodes), len(actual.Nodes))
 		}
@@ -141,7 +139,7 @@ func TestConvert(t *testing.T) {
 		for i := 0; i < 100; i++ {
 			input := randomDAG()
 
-			actual := merkle.From(input)
+			actual := hashdag.From(input)
 
 			require.True(t, len(actual.Edges) >= len(actual.Nodes)-1)
 		}
@@ -149,15 +147,17 @@ func TestConvert(t *testing.T) {
 }
 
 func runConvertTest(t *testing.T, input vanilla.Graph, expectedNodeIds mapset.Set[string], expectedEdges mapset.Set[string]) {
-	actual := merkle.From(input, merkle.WithHasher(merkle.NaiveHasher, merkle.NaiveCombiner))
+	actual := hashdag.From(input, hashdag.WithHasher(hashdag.NaiveHasher, hashdag.NaiveCombiner))
 
-	actualNodeIds := mapset.NewSet(slice.Map(actual.Nodes, func(node merkle.Node) string {
-		return string(node.Id)
-	})...)
+	actualNodeIds := mapset.NewSet[string]()
+	for _, node := range actual.Nodes {
+		actualNodeIds.Add(string(node.Id))
+	}
 
-	actualEdges := mapset.NewSet(slice.Map(actual.Edges, func(edge merkle.Edge) string {
-		return fmt.Sprintf("%s->%s", edge.SourceNodeId, edge.TargetNodeId)
-	})...)
+	actualEdges := mapset.NewSet[string]()
+	for _, edge := range actual.Edges {
+		actualEdges.Add(fmt.Sprintf("%s->%s", edge.SourceNodeId, edge.TargetNodeId))
+	}
 
 	w := expectedNodeIds.ToSlice()
 	x := actualNodeIds.ToSlice()

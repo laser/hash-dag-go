@@ -1,4 +1,4 @@
-package merkle
+package hashdag
 
 import gvz "github.com/laser/random-dag-generator-go/render/graphviz"
 

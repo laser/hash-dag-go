@@ -1,4 +1,4 @@
-package merkle
+package hashdag
 
 import (
 	"crypto/sha256"
@@ -7,7 +7,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/laser/merkle-dag-go/vanilla"
+	"github.com/laser/hash-dag-go/vanilla"
 )
 
 type Hash = string
@@ -90,10 +90,10 @@ func From(input vanilla.Graph, options ...ConversionOption) (output Graph) {
 			// compute the Hash of the current node
 			hash := cfg.combiner(cfg.hasher(node.Data), parentHashes)
 
-			// add the node to the Merkle DAG
+			// add the node to the DAG
 			nodes[hash] = Node{Id: NodeId(hash), Data: NodeData(node.Data)}
 
-			// add the edge to the Merkle DAG
+			// add the edge to the DAG
 			for _, parent := range parentHashes {
 				edges[fmt.Sprintf("%s-%s", parent, hash)] = Edge{SourceNodeId: NodeId(parent), TargetNodeId: NodeId(hash)}
 			}

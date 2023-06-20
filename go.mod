@@ -1,4 +1,4 @@
-module github.com/laser/merkle-dag-go
+module github.com/laser/hash-dag-go
 
 go 1.20
 
